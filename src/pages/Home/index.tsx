@@ -1,27 +1,15 @@
 import { useState } from 'react'
 import {
   DaysLeft,
-  Error,
   HomeContainer,
-  HomeForm,
   Percent,
   SalesDetails,
   Target,
 } from './styles'
 
-import * as zod from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { addMonths, differenceInDays, startOfMonth } from 'date-fns'
 
-import { useForm } from 'react-hook-form'
-
-const newTargetFormValidationSchema = zod.object({
-  name: zod.string().min(1, 'Informe um nome'),
-  target: zod.string().min(1, 'Informe a meta'),
-  sale: zod.string().min(1, 'Informe a venda'),
-})
-
-type newTargetFormData = zod.infer<typeof newTargetFormValidationSchema>
+import { Form } from '../../components/Form'
 
 interface newTarget {
   name: string
@@ -31,28 +19,6 @@ interface newTarget {
 
 export function Home() {
   const [newTarget, setNewTarget] = useState<newTarget | undefined>()
-
-  const newTargetForm = useForm<newTargetFormData>({
-    resolver: zodResolver(newTargetFormValidationSchema),
-    defaultValues: {
-      name: '',
-      target: '',
-      sale: '',
-    },
-  })
-
-  const { register, handleSubmit, reset, formState } = newTargetForm
-
-  function handleNewTarget(data: newTargetFormData) {
-    const newTarget = {
-      name: data.name,
-      target: data.target,
-      sale: data.sale,
-    }
-
-    setNewTarget(newTarget)
-    reset()
-  }
 
   function parseNumberToFloat(numberToParse: string | undefined) {
     if (numberToParse) {
@@ -64,6 +30,10 @@ export function Home() {
 
       return formatedNumber
     }
+  }
+
+  function markNewTarget(target: newTarget) {
+    setNewTarget(target)
   }
 
   const today = new Date()
@@ -105,48 +75,7 @@ export function Home() {
 
       <DaysLeft>Faltam {daysLeft} dias</DaysLeft>
 
-      <HomeForm onSubmit={handleSubmit(handleNewTarget)}>
-        <div>
-          <label>Nome</label>
-          <input
-            type="text"
-            placeholder="Nome do vendedor"
-            id="name"
-            {...register('name')}
-          />
-          {formState.errors.name && (
-            <Error>{formState.errors.name?.message}</Error>
-          )}
-        </div>
-
-        <div>
-          <label>Meta</label>
-          <input
-            type="text"
-            placeholder="Meta do vendedor"
-            id="target"
-            {...register('target')}
-          />
-          {formState.errors.target && (
-            <Error>{formState.errors.target?.message}</Error>
-          )}
-        </div>
-
-        <div>
-          <label>Venda</label>
-          <input
-            type="text"
-            placeholder="Venda até hoje"
-            id="sale"
-            {...register('sale')}
-          />
-          {formState.errors.sale && (
-            <Error>{formState.errors.sale?.message}</Error>
-          )}
-        </div>
-
-        <button type="submit">Calcular</button>
-      </HomeForm>
+      <Form markNewTarget={markNewTarget} />
     </HomeContainer>
   )
 }
