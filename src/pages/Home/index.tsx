@@ -64,13 +64,15 @@ export function Home() {
   const daysLeft = differenceInDays(startOfNextMonth, today)
 
   const dailyTarget =
-    newTarget && newTarget.sale < newTarget.target
+    newTarget && Number(newTarget.sale) < Number(newTarget.target)
       ? (Number(newTarget.target) - Number(newTarget.sale)) / daysLeft
       : 0
 
   const targetPercent = newTarget
     ? Number(newTarget.sale) / Number(newTarget.target)
     : 0
+
+  console.log(dailyTarget)
 
   return (
     <HomeContainer>
