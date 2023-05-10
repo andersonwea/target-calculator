@@ -1,5 +1,13 @@
 import { useState } from 'react'
-import { DaysLeft, HomeContainer, HomeForm, Percent, Target } from './styles'
+import {
+  DaysLeft,
+  Error,
+  HomeContainer,
+  HomeForm,
+  Percent,
+  SalesDetails,
+  Target,
+} from './styles'
 
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,8 +17,8 @@ import { useForm } from 'react-hook-form'
 
 const newTargetFormValidationSchema = zod.object({
   name: zod.string().min(1, 'Informe um nome'),
-  target: zod.string(),
-  sale: zod.string(),
+  target: zod.string().min(1, 'Informe a meta'),
+  sale: zod.string().min(1, 'Informe a venda'),
 })
 
 type newTargetFormData = zod.infer<typeof newTargetFormValidationSchema>
@@ -33,7 +41,7 @@ export function Home() {
     },
   })
 
-  const { register, handleSubmit, reset } = newTargetForm
+  const { register, handleSubmit, reset, formState } = newTargetForm
 
   function handleNewTarget(data: newTargetFormData) {
     const newTarget = {
@@ -88,8 +96,12 @@ export function Home() {
           <circle cx="70" cy="70" r="70"></circle>
         </svg>
       </Percent>
-      <p>Venda: R$ {newTarget ? parseNumberToFloat(newTarget?.sale) : 0}</p>
-      <p>Meta Diária: R$ {parseNumberToFloat(dailyTarget.toFixed(2))}</p>
+      <SalesDetails>
+        Venda: R$ {newTarget ? parseNumberToFloat(newTarget?.sale) : 0}
+      </SalesDetails>
+      <SalesDetails>
+        Meta Diária: R$ {parseNumberToFloat(dailyTarget.toFixed(2))}
+      </SalesDetails>
 
       <DaysLeft>Faltam {daysLeft} dias</DaysLeft>
 
@@ -102,6 +114,9 @@ export function Home() {
             id="name"
             {...register('name')}
           />
+          {formState.errors.name && (
+            <Error>{formState.errors.name?.message}</Error>
+          )}
         </div>
 
         <div>
@@ -112,6 +127,9 @@ export function Home() {
             id="target"
             {...register('target')}
           />
+          {formState.errors.target && (
+            <Error>{formState.errors.target?.message}</Error>
+          )}
         </div>
 
         <div>
@@ -122,6 +140,9 @@ export function Home() {
             id="sale"
             {...register('sale')}
           />
+          {formState.errors.sale && (
+            <Error>{formState.errors.sale?.message}</Error>
+          )}
         </div>
 
         <button type="submit">Calcular</button>

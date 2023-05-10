@@ -21,10 +21,10 @@ export const HomeContainer = styled.div`
     color: ${(props) => props.theme['color-primary']};
     font-weight: 400;
   }
+`
 
-  p {
-    font-size: 1.5rem;
-  }
+export const SalesDetails = styled.p`
+  font-size: 1.5rem;
 `
 
 export const Target = styled.p`
@@ -120,4 +120,10 @@ export const HomeForm = styled.form`
 export const DaysLeft = styled.span`
   margin-top: 0.5rem;
   color: ${(props) => props.theme['color-light']};
+`
+
+export const Error = styled.p`
+  color: red;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
 `
