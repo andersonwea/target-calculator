@@ -107,6 +107,13 @@ export const HomeForm = styled.form`
     max-width: max-content;
 
     align-self: center;
+
+    transition: all 0.25s ease;
+
+    &:hover {
+      background: ${(props) => props.theme.white};
+      color: ${(props) => props.theme['bg-color']};
+    }
   }
 `
 
