@@ -72,8 +72,6 @@ export function Home() {
     ? Number(newTarget.sale) / Number(newTarget.target)
     : 0
 
-  console.log(dailyTarget)
-
   return (
     <HomeContainer>
       <h1>Meta</h1>
