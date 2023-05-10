@@ -13,6 +13,10 @@ export const HomeContainer = styled.div`
   align-items: center;
   justify-content: center;
 
+  @media (max-width: 400px) {
+    margin: 0.5rem;
+  }
+
   h1 {
     color: ${(props) => props.theme['color-primary']};
     font-weight: 400;
