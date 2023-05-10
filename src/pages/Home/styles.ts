@@ -4,8 +4,8 @@ export const HomeContainer = styled.div`
   max-width: 400px;
   background-color: ${(props) => props.theme['bg-color-secondary']};
 
-  margin: 3rem auto;
-  padding: 2rem;
+  margin: 1rem auto;
+  padding: 0.25rem;
   border-radius: 2rem;
 
   display: flex;
@@ -40,7 +40,7 @@ export const Percent = styled.div<PercentProps>`
   width: 150px;
   height: 150px;
   position: relative;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 
   span {
     color: white;
@@ -82,7 +82,7 @@ export const HomeForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
 
   input {
     background: transparent;
@@ -97,7 +97,7 @@ export const HomeForm = styled.form`
     background: #4db5ff;
     color: #1f1f38;
     font-size: 1rem;
-    margin-top: 1rem;
+    margin-bottom: 0.5rem;
 
     padding: 0.5rem 1.5rem;
     border: none;
@@ -118,6 +118,6 @@ export const HomeForm = styled.form`
 `
 
 export const DaysLeft = styled.span`
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   color: ${(props) => props.theme['color-light']};
 `
